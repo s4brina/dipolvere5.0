@@ -74,44 +74,55 @@
         </body>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const refreshButton = document.getElementById("refreshButton");
-                const navList = document.getElementById("navList");
-                const listItems = Array.from(navList.getElementsByTagName("li"));
-                const buffer = 200; // Adjust this buffer value as needed
-    
-                function getRandomPosition(item) {
-                    const maxX = window.innerWidth - item.offsetWidth;
-                    const footer = document.querySelector("footer");
-                    const footerHeight = footer.offsetHeight;
-                    const maxY = window.innerHeight - item.offsetHeight - footerHeight - buffer;
-    
-                    const randomX = Math.max(0, Math.floor(Math.random() * maxX));
-                    const randomY = Math.max(0, Math.floor(Math.random() * maxY));
-                    return { x: randomX, y: randomY };
-                }
-    
-                refreshButton.addEventListener("click", function () {
-                    const existingPositions = [];
-                    listItems.forEach(item => {
-                        let newPosition;
-                        do {
-                            newPosition = getRandomPosition(item);
-                        } while (existingPositions.some(pos => isOverlapping(pos, newPosition)));
-                        item.style.transform = `translate(${newPosition.x}px, ${newPosition.y}px)`;
-                        existingPositions.push(newPosition);
-                    });
-                });
-    
-                function isOverlapping(pos1, pos2) {
-                    const dx = pos1.x - pos2.x;
-                    const dy = pos1.y - pos2.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    return distance < 250; // Adjust this threshold as needed
-                }
-    
-                // Initial random positioning
-                refreshButton.click();
-            });
+document.addEventListener("DOMContentLoaded", function () {
+    const refreshButton = document.getElementById("refreshButton");
+    const navList = document.getElementById("navList");
+    const listItems = Array.from(navList.getElementsByTagName("li"));
+    const buffer = 200; // Adjust this buffer value as needed
+
+    function getRandomPosition(item) {
+        const maxX = window.innerWidth - item.offsetWidth;
+        const footer = document.querySelector("footer");
+        const footerHeight = footer.offsetHeight;
+        const maxY = window.innerHeight - item.offsetHeight - footerHeight - buffer;
+
+        const randomX = Math.max(0, Math.floor(Math.random() * maxX));
+        const randomY = Math.max(0, Math.floor(Math.random() * maxY));
+        return { x: randomX, y: randomY };
+    }
+
+    function getRandomFontSize() {
+        // Generate a random font size between 12px and 30px
+        return Math.floor(Math.random() * (30 - 12 + 1)) + 12 + "px";
+    }
+
+    refreshButton.addEventListener("click", function () {
+        const existingPositions = [];
+        listItems.forEach(item => {
+            let newPosition;
+            do {
+                newPosition = getRandomPosition(item);
+            } while (existingPositions.some(pos => isOverlapping(pos, newPosition)));
+
+            // Apply random font size to the anchor within the list item
+            const anchor = item.querySelector("a");
+            anchor.style.fontSize = getRandomFontSize();
+
+            item.style.transform = `translate(${newPosition.x}px, ${newPosition.y}px)`;
+            existingPositions.push(newPosition);
+        });
+    });
+
+    function isOverlapping(pos1, pos2) {
+        const dx = pos1.x - pos2.x;
+        const dy = pos1.y - pos2.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        return distance < 250; // Adjust this threshold as needed
+    }
+
+    // Initial random positioning and font size
+    refreshButton.click();
+});
+
         </script>
 </html>
