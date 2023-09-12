@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Website</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="style.css" />
+        <link rel="icon" href="images/logo.png" type="image/x-icon">
+
+
+	</head>
+
+        <body>
+            <header id="header">
+                <div class="inner">
+                    <!-- Logo -->
+                    <div class="container2">
+                        <a href="index.html" class="logo">
+                            <span class="symbol"><img src="images/logo_crit.png" alt="" /></span>
+                        </a>
+                        </div>
+                        <div class="container2">
+                            <button id="refreshButton"> <img id="refreshImage" src="images/refreshbutton(black).png" alt="refresh"></button>
+                            </div>
+
+
+                   
+                <!-- Nav -->
+                <ul id="navList">
+                    <div class="zone">
+
+                        <li class="tooltip"><span class="tooltiptext">
+                        </span><a href="naked.html"class="criticismtext">Johnny knows too much</a></li>
+                    
+                <li class="tooltip"><span class="tooltiptext">And who is the face of masculine, male performance on social media? Andrew Tate. And Barbie says there is a danger in that.
+                </span><a href="barbie.html"class="criticismtext">Barbie vs Andrew Tate</a></li>
+                
+                <li class="tooltip"><span class="tooltiptext">You find in Blade Runner that which our world lacks. An indescribable feeling overcomes you and makes your heart soar in finding this. What is this feeling?
+                </span><a href="blade_runner.html" target="_blank"class="criticismtext">Blade Runner the Bittersweet</a></li>
+                
+                <li class="tooltip"><span class="tooltiptext"> Supercop seems to occupy this middle-ground between art and commercial. How?
+                </span><a href="supercop.html"class="criticismtext">Art Film?</a></li>
+
+                <li class="tooltip"><span class="tooltiptext">  I noticed while watching Stalker there was something that was beyond the story, latent in the background if you will...
+                </span><a href="stalker.html" class="criticismtext">Stalker</a></li>
+                
+                <li class="tooltip"><span class="tooltiptext">Marcello for example, was taken all over Rome; from a prostitute’s home, to nightclubs, to a castle, he became this sentinel for the audience on a mission to uncover something. But what?</span><a href="passion_italia.html"class="criticismtext">Fervour Italia</a></li>
+                
+                <li class="tooltip"><span class="tooltiptext">Tarantino sets a premise - he wants you to take notice of the actor's work
+                </span><a href="tarantinos_ballad.html"class="criticismtext">Tarantino's ballad to his beloved medium</li>
+                
+                <li class="tooltip"><span class="tooltiptext">what is a memory?</span><a href="i_crashed_my_car.html"class="criticismtext">I crashed my car...</a></li>
+              </ul>
+            </ul>
+        </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+    </header>
+
+    <main class="main-content">
+        <!-- Your main content goes here -->
+    </main>
+
+    <footer>
+        <div class="container2">
+            <footer>
+              <p class="footer">© 2023 FiLM di POLVERE | All Rights Reserved.</p>
+            </footer>
+          </div>
+        </body>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const refreshButton = document.getElementById("refreshButton");
+                const navList = document.getElementById("navList");
+                const listItems = Array.from(navList.getElementsByTagName("li"));
+                const buffer = 200; // Adjust this buffer value as needed
+    
+                function getRandomPosition(item) {
+                    const maxX = window.innerWidth - item.offsetWidth;
+                    const footer = document.querySelector("footer");
+                    const footerHeight = footer.offsetHeight;
+                    const maxY = window.innerHeight - item.offsetHeight - footerHeight - buffer;
+    
+                    const randomX = Math.max(0, Math.floor(Math.random() * maxX));
+                    const randomY = Math.max(0, Math.floor(Math.random() * maxY));
+                    return { x: randomX, y: randomY };
+                }
+    
+                refreshButton.addEventListener("click", function () {
+                    const existingPositions = [];
+                    listItems.forEach(item => {
+                        let newPosition;
+                        do {
+                            newPosition = getRandomPosition(item);
+                        } while (existingPositions.some(pos => isOverlapping(pos, newPosition)));
+                        item.style.transform = `translate(${newPosition.x}px, ${newPosition.y}px)`;
+                        existingPositions.push(newPosition);
+                    });
+                });
+    
+                function isOverlapping(pos1, pos2) {
+                    const dx = pos1.x - pos2.x;
+                    const dy = pos1.y - pos2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    return distance < 250; // Adjust this threshold as needed
+                }
+    
+                // Initial random positioning
+                refreshButton.click();
+            });
+        </script>
+</html>
