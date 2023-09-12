@@ -561,3 +561,9 @@ h3 {
     
     justify-content: center;
 }
+
+.dark_a {
+    color: white;
+    /* Define a default font size here */
+    font-size: 15px;
+}
